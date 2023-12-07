@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Store from './Store';
-import ApperalDetails from './ApperalDetails';
+import ApparelDetails from './ApparelDetails';
+import Header from './Header';
 
 const MerchControl = () => {
   const [merch, setMerch] = useState([
@@ -27,35 +28,35 @@ const MerchControl = () => {
   }
   ]);
 
-  const [showShirts, setShowShirts] = useState(false);
-  const [selectedApperal, setSelectedApperal] = useState(null);
+  const [showSmallApparel, setShowShirts] = useState(false);
+  const [selectedApparel, setSelectedApparel] = useState(null);
 
-  const handleShowShirts = () => {
+  const handleShowSmallApparel= () => {
     setShowShirts(true);
-    setSelectedApperal(null);
+    setSelectedApparel(null);
   }
 
-  const showApperal = (apperal) => {
+  const showApparel = (apparel) => {
     setShowShirts(false);
-    setSelectedApperal(apperal);
+    setSelectedApparel(apparel);
   }
 
   const handleHomeStore = () => {
     setShowShirts(false);
-    setSelectedApperal(null);
+    setSelectedApparel(null);
   }
   
   const handleRestock = () => {
     setMerch((prevMerch) => {
       const updatedMerch = prevMerch.map((item) => {
-        return item.id === selectedApperal.id ? {
+        return item.id === selectedApparel.id ? {
           ...item,
           quantity: item.quantity + 1,
         } : item;
       });
       
-      const updatedItem = updatedMerch.find((item) => item.id === selectedApperal.id);
-      setSelectedApperal(updatedItem);
+      const updatedItem = updatedMerch.find((item) => item.id === selectedApparel.id);
+      setSelectedApparel(updatedItem);
       return updatedMerch;
     });
   };
@@ -63,91 +64,40 @@ const MerchControl = () => {
   const handlePurchase = () => {
     setMerch((prevMerch) => {
       const updatedMerch = prevMerch.map((item) => {
-        return item.id === selectedApperal.id && item.quantity > 0 ? {
+        return item.id === selectedApparel.id && item.quantity > 0 ? {
           ...item,
           quantity: item.quantity - 1
         } : item
       });
       
-      const updatedItem = updatedMerch.find((item) => item.id === selectedApperal.id);
-      setSelectedApperal(updatedItem);
+      const updatedItem = updatedMerch.find((item) => item.id === selectedApparel.id);
+      setSelectedApparel(updatedItem);
       return updatedMerch;
     });
   };
   
-  const filteredMerch = showShirts ? merch.filter((apparel) => apparel.size === 'small') : merch;
+  const filteredMerch = showSmallApparel ? merch.filter((apparel) => apparel.size === 'small') : merch;
   return (
     <div>
-    <button onClick={handleHomeStore}>Home</button>
-    <button onClick={handleShowShirts}>Show Shirts</button>
-
-    {selectedApperal ? (
+    {/* <button onClick={handleHomeStore}>Home</button>
+    <button onClick={handleShowShirts}>Show Shirts</button> */}
+    {/* <Header onShirtClick={handleShowShirts}/> */}
+    <Header
+        onHomeClick={handleHomeStore}
+        onShowSmallApparelClick={handleShowSmallApparel}
+        // onCartClick={handleCartClick}
+      />
+    {selectedApparel ? (
       <div>
-        <ApperalDetails apperal={selectedApperal} />
+        <ApparelDetails apparel={selectedApparel} />
         <button onClick={handleHomeStore}>Back to Store</button>
         <button onClick={handleRestock}>Restock</button>
         <button onClick={handlePurchase}>Purchase</button>
       </div>
-    ) : ( <Store merch={filteredMerch} onItemClick={showApperal}></Store>
+    ) : ( <Store merch={filteredMerch} onItemClick={showApparel}></Store>
     )}
     </div>
   )
 }
 
 export default MerchControl;
-
-
-
-
-
-// const InventoryDetails = () => {
-// const [inventory, setInventory] = useState({});
-
-//   const handleRestock = () => {
-//     setMerch({
-//         merch,
-//         quantity: merch.quantity + 1,
-//     });
-// };
-
-
-  // const handleRestock = () => {
-  //   if (selectedApperal) {
-  //     const updatedMerch = merch.map(item => {
-  //       if (item.id === selectedApperal.id) {
-  //         return {
-  //           ...item,
-  //           quantity: item.quantity + 1
-  //         };
-  //       }
-  //       return item;
-  //     });
-  
-  //     console.log(updatedMerch)
-  //     console.log(selectedApperal)
-  //     console.log(merch)
-  // setMerch(updatedMerch)
-  //     setSelectedApperal({
-  //       ...selectedApperal,
-  //       quantity: selectedApperal.quantity + 1,
-  //     });
-  //   }
-  // };
-  // handleEditClick = () => {
-  //   console.log("handleEditClick reached!");
-  //   this.setState({editing: true});
-  // }
-  
-
-
-  // const handleRestock = () => {
-  //   setMerch((prevMerch) => {
-  //     const updatedMerch = {
-  //       ...prevMerch[selectedApperal.id],
-  //       quantity: (prevMerch[selectedApperal.id].quantity + 1),
-  //     };
-  //     console.log("previous", prevMerch[selectedApperal.id])
-  //     console.log("updated", updatedMerch)
-  //     setMerch(updatedMerch);
-  //   });
-  // };
