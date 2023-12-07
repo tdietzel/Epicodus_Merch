@@ -12,14 +12,16 @@ const ApparelDetails = (props) => {
   return (
 <div>
 {apparel.quantity <= 0 ? (
-  <div>
+  <div id="shirt" className="text-center">
     <h2>Name: {apparel.name}</h2>
     <h3>Size: {apparel.size}</h3>
     <h3>Quantity: Out Of Stock</h3>
     <h3>Color: {apparel.color}</h3>
+    <br />
   </div>
+  
 ) : (
-  <div>
+  <div className="text-center">
     <h2>Name: {apparel.name}</h2>
     <h3>Size: {apparel.size}</h3>
     <h3>Quantity: {quantity}</h3>

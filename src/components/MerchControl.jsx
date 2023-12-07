@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Store from './Store';
 import ApparelDetails from './ApparelDetails';
 import Header from './Header';
+import NewApparelForm from './NewApparelForm';
 
 const MerchControl = () => {
   const [merch, setMerch] = useState([
@@ -75,13 +76,18 @@ const MerchControl = () => {
       return updatedMerch;
     });
   };
+  const handleAddingNewApparelToList = (newApparel) => {
+    console.log('Adding new apparel:', newApparel);
+    setMerch((prevMerch) => {
+      const updatedApparel = [...prevMerch, newApparel];
+      console.log(updatedApparel);
+      return updatedApparel;
+    });
+  };
   
   const filteredMerch = showSmallApparel ? merch.filter((apparel) => apparel.size === 'small') : merch;
   return (
-    <div>
-    {/* <button onClick={handleHomeStore}>Home</button>
-    <button onClick={handleShowShirts}>Show Shirts</button> */}
-    {/* <Header onShirtClick={handleShowShirts}/> */}
+    <div className="text-center">
     <Header
         onHomeClick={handleHomeStore}
         onShowSmallApparelClick={handleShowSmallApparel}
@@ -94,7 +100,11 @@ const MerchControl = () => {
         <button onClick={handleRestock}>Restock</button>
         <button onClick={handlePurchase}>Purchase</button>
       </div>
-    ) : ( <Store merch={filteredMerch} onItemClick={showApparel}></Store>
+    ) : (
+      <>
+        <Store merch={filteredMerch} onItemClick={showApparel} />
+        <NewApparelForm onSubmit={handleAddingNewApparelToList} />
+      </>
     )}
     </div>
   )
