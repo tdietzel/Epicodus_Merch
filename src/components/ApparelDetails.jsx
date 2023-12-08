@@ -12,7 +12,7 @@ const ApparelDetails = (props) => {
   return (
 <div>
 {apparel.quantity <= 0 ? (
-  <div id="shirt" className="text-center">
+  <div id="shirt1" className="text-center">
     <h2>Name: {apparel.name}</h2>
     <h3>Size: {apparel.size}</h3>
     <h3>Quantity: Out Of Stock</h3>

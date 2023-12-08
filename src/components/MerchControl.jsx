@@ -87,7 +87,7 @@ const MerchControl = () => {
   
   const filteredMerch = showSmallApparel ? merch.filter((apparel) => apparel.size === 'small') : merch;
   return (
-    <div className="text-center">
+    <div>
     <Header
         onHomeClick={handleHomeStore}
         onShowSmallApparelClick={handleShowSmallApparel}
